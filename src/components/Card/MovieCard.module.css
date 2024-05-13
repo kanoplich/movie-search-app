@@ -1,0 +1,61 @@
+.card {
+  position: relative;
+  background-color: var(--mantine-color-body);
+  width: 482px;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.title {
+  cursor: pointer;
+  max-width: 260px;
+  font-size: var(--mantine-font-size-xl);
+  font-weight: 600;
+  letter-spacing: 0.32px;
+  color: var(--mantine-color-purple-5);
+
+  &:hover {
+    color: var(--mantine-color-purple-4);
+  }
+  &:active {
+    color: var(--mantine-color-purple-6);
+  }
+}
+
+.data {
+  font-size: var(--mantine-font-size-md);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0.32px;
+  color: var(--mantine-color-grey-6);
+}
+
+.genresWrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
+.ratingWrapper {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+}
+
+.rating {
+  font-size: var(--mantine-font-size-md);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.32px;
+  color: var(--mantine-color-black);
+  margin-top: 2px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 170px;
+  padding-left: var(--mantine-spacing-md);
+}

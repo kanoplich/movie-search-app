@@ -1,0 +1,91 @@
+.input {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  height: 42px;
+
+  &:active {
+    border-color: var(--mantine-color-purple-5);
+  }
+
+  &:focus-within {
+    border-color: var(--mantine-color-purple-5);
+  }
+}
+
+.label {
+  font-size: var(--mantine-font-size-md);
+  font-weight: 700;
+}
+
+.pill {
+  font-size: var(--mantine-font-size-sm);
+  background-color: var(--mantine-color-white);
+  padding: 0;
+
+  button {
+    display: none;
+  }
+}
+
+.section {
+  background-image: url('/down.svg');
+  background-position: center right;
+  background-repeat: no-repeat;
+  margin-right: 6px;
+
+  svg {
+    display: none;
+  }
+}
+
+.option {
+  &:hover {
+    border-radius: var(--mantine-radius-md);
+    background-color: var(--mantine-color-purple-5);
+    color: var(--mantine-color-white);
+    font-size: var(--mantine-font-size-sm);
+    font-weight: 400;
+    line-height: var(--mantine-line-height-xs);
+  }
+}
+
+.pillList {
+  flex-wrap: nowrap;
+}
+
+.sectionNumber {
+  background-image: url('/up_down.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  svg {
+    display: none;
+  }
+}
+
+.control {
+  border: none;
+
+  &:hover {
+    background: transparent;
+  }
+}
+
+.rootButton {
+  background-color: inherit;
+  border: none;
+  padding: 0;
+  width: 81px;
+
+  &:hover {
+    background-color: inherit;
+  }
+}
+
+.labelButton {
+  font-size: var(--mantine-font-size-sm);
+  line-height: var(--mantine-line-height-xs);
+  font-weight: 500;
+  color: var(--mantine-color-grey-6);
+}

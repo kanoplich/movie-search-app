@@ -10,7 +10,7 @@ const data = [
   { link: '', label: 'Rated movies' },
 ];
 
-export function Navbar() {
+export default function Navbar() {
   const [active, setActive] = useState('Movies');
 
   const links = data.map((item) => (

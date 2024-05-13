@@ -1,0 +1,13 @@
+.input {
+  width: 490px;
+  height: 48px;
+}
+
+.btn {
+  background-color: var(--mantine-color-purple-5);
+
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 600;
+  line-height: var(--mantine-line-height-xs);
+  letter-spacing: 0.32px;
+}

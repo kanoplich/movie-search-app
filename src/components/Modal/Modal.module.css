@@ -1,0 +1,74 @@
+.container {
+  position: relative;
+}
+
+.divider {
+  position: absolute;
+  top: 54px;
+  left: 0;
+  width: 100%;
+}
+
+.closeBtn {
+  color: var(--mantine-color-grey-5);
+}
+
+.title4 {
+  font-size: var(--mantine-font-size-md);
+  font-weight: 400;
+  line-height: var(--mantine-line-height-xs);
+}
+
+.title3 {
+  font-size: var(--mantine-font-size-md);
+  font-weight: 700;
+  line-height: var(--mantine-line-height-xs);
+  margin-top: var(--mantine-spacing-xl);
+  margin-bottom: var(--mantine-spacing-md);
+}
+
+.rating {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: var(--mantine-spacing-md);
+}
+
+.saveBtn {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 600;
+  color: var(--mantine-color-white);
+  line-height: var(--mantine-line-height-xs);
+
+  background-color: var(--mantine-color-purple-5);
+  border-radius: var(--mantine-radius-md);
+  border: none;
+
+  @mixin hover {
+    background-color: var(--mantine-color-purple-4);
+    color: var(--mantine-color-white);
+  }
+
+  &:active {
+    background-color: var(--mantine-color-purple-6);
+  }
+}
+
+.removeBtn {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 600;
+  color: var(--mantine-color-purple-5);
+  line-height: var(--mantine-line-height-xs);
+
+  background-color: inherit;
+  border: none;
+
+  @mixin hover {
+    background-color: inherit;
+    color: var(--mantine-color-purple-4);
+  }
+
+  &:active {
+    color: var(--mantine-color-purple-6);
+  }
+}
