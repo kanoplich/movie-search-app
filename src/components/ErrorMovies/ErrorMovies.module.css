@@ -1,0 +1,15 @@
+.flex {
+  height: 293px;
+  margin-top: var(--mantine-spacing-lg);
+}
+
+.text {
+  font-size: var(--mantine-font-size-xl);
+  font-weight: 600;
+  margin-top: calc(var(--mantine-spacing-md) * 3);
+}
+
+.desktopImage {
+  max-width: 310px;
+  width: calc(100% - 20px);
+}

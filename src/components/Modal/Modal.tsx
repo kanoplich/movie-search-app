@@ -11,6 +11,7 @@ import {
   CloseButton,
 } from '@mantine/core';
 import { useEffect, useState } from 'react';
+import { useStorage } from '@hooks/useStorage';
 import classes from './Modal.module.css';
 
 type ModalProps = {
@@ -27,13 +28,23 @@ export default function Modal({
   id,
 }: Readonly<ModalProps>) {
   const theme = useMantineTheme();
-  const [rating, setRating] = useState<number>(0);
+  const [currentRating, setCurrentRating] = useState<number>(0);
+  const { rating, addRating, removeRating } = useStorage();
+
+  useEffect(() => {
+    if (`${id}` in rating) {
+      setCurrentRating(+rating[id]);
+    }
+  }, []);
 
   const handleClickSave = () => {
+    addRating(id, currentRating.toString());
     close();
   };
 
   const handleClickRemove = () => {
+    removeRating(id);
+    setCurrentRating(0);
     close();
   };
 
@@ -59,12 +70,11 @@ export default function Modal({
       </Title>
       <Rating
         className={classes.rating}
-        defaultValue={0}
-        value={rating}
+        defaultValue={currentRating}
         color={theme.colors.yellow[6]}
         size='xl'
         count={10}
-        onChange={(value) => setRating(value)}
+        onChange={(value) => setCurrentRating(value)}
       />
       <Flex>
         <Button className={classes.saveBtn} onClick={handleClickSave}>

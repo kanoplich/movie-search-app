@@ -8,6 +8,7 @@ import { Data, General, Genres } from '@customTypes/types';
 import { useEffect, useState } from 'react';
 import Loading from '../loading';
 import Pagination from '@components/Pagination/Pagination';
+import ErrorMovies from '@components/ErrorMovies/ErrorMovies';
 import classes from './movies.module.css';
 
 export default function Movies() {
@@ -83,7 +84,13 @@ export default function Movies() {
           ))
         )}
       </Flex>
-      <Pagination page={page} setPage={setPage} pages={data?.total_pages} />
+      {data?.results.length == 0 ? (
+        <ErrorMovies />
+      ) : (
+        data && (
+          <Pagination page={page} setPage={setPage} pages={data.total_pages} />
+        )
+      )}
     </Container>
   );
 }

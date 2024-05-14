@@ -10,7 +10,7 @@
 
 .title {
   cursor: pointer;
-  max-width: 260px;
+  max-width: 250px;
   font-size: var(--mantine-font-size-xl);
   font-weight: 600;
   letter-spacing: 0.32px;

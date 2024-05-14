@@ -14,7 +14,7 @@ import { Genres, Movie } from '@customTypes/types';
 import Link from 'next/link';
 import Modal from '@components/Modal/Modal';
 import { useDisclosure } from '@mantine/hooks';
-import { useState } from 'react';
+import { useStorage } from '@hooks/useStorage';
 import classes from './MovieCard.module.css';
 
 type MovieCardProps = {
@@ -38,7 +38,7 @@ export default function MovieCard({
   } = movie;
 
   const [opened, { open, close }] = useDisclosure(false);
-  const [rating, setRating] = useState<string>('0');
+  const { rating } = useStorage();
 
   const genres = genresList
     .filter((genres) => genre_ids.includes(genres.id))
@@ -112,11 +112,15 @@ export default function MovieCard({
 
       <Group gap={'4px'} wrap='nowrap' className={classes.ratingWrapper}>
         <IconStarFilled
-          color={theme.colors.grey[3]}
+          color={
+            `${id}` in rating ? theme.colors.purple[5] : theme.colors.grey[3]
+          }
           onClick={open}
           style={{ cursor: 'pointer', width: '28px', height: '28px' }}
         />
-        <Text className={classes.rating}>{rating}</Text>
+        <Text className={classes.rating}>
+          {`${id}` in rating ? rating[id] : ''}
+        </Text>
       </Group>
       <Modal opened={opened} close={close} title={original_title} id={id} />
     </Card>

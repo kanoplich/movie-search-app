@@ -1,0 +1,35 @@
+.flex {
+  height: 293px;
+  margin-top: var(--mantine-spacing-lg);
+}
+
+.text {
+  font-size: var(--mantine-font-size-xl);
+  font-weight: 600;
+  margin-top: calc(var(--mantine-spacing-md) * 3);
+}
+
+.desktopImage {
+  max-width: 310px;
+  width: calc(100% - 20px);
+}
+
+.control {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 600;
+  color: var(--mantine-color-white);
+  line-height: var(--mantine-line-height-xs);
+
+  background-color: var(--mantine-color-purple-5);
+  border-radius: var(--mantine-radius-md);
+  border: none;
+
+  @mixin hover {
+    background-color: var(--mantine-color-purple-4);
+    color: var(--mantine-color-white);
+  }
+
+  &:active {
+    background-color: var(--mantine-color-purple-6);
+  }
+}

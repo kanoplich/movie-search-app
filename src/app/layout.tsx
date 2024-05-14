@@ -1,6 +1,7 @@
 import '@mantine/core/styles.css';
 import type { Metadata } from 'next';
 import { ColorSchemeScript, MantineProvider, Container } from '@mantine/core';
+import StorageContextProvider from '@context/storage-context';
 import { theme } from '../theme';
 import classes from './layout.module.css';
 
@@ -26,9 +27,9 @@ export default function RootLayout({
       <body>
         <MantineProvider theme={theme}>
           <Container className={classes.container}>
-            <header></header>
-            <main>{children}</main>
-            <footer></footer>
+            <StorageContextProvider>
+              <main>{children}</main>
+            </StorageContextProvider>
           </Container>
         </MantineProvider>
       </body>
