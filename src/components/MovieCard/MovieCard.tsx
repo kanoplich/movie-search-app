@@ -10,7 +10,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { IconStarFilled } from '@tabler/icons-react';
-import { Genres, Movie } from '@customTypes/types';
+import { Genres, Movie, MovieDetails } from '@customTypes/types';
 import Link from 'next/link';
 import Modal from '@components/Modal/Modal';
 import { useDisclosure } from '@mantine/hooks';
@@ -18,7 +18,7 @@ import { useStorage } from '@hooks/useStorage';
 import classes from './MovieCard.module.css';
 
 type MovieCardProps = {
-  movie: Movie;
+  movie: Movie | MovieDetails;
   genresList: Genres[];
 };
 
@@ -34,16 +34,21 @@ export default function MovieCard({
     vote_average,
     vote_count,
     poster_path,
-    genre_ids,
   } = movie;
 
   const [opened, { open, close }] = useDisclosure(false);
-  const { rating } = useStorage();
+  const { storageData } = useStorage();
 
-  const genres = genresList
-    .filter((genres) => genre_ids.includes(genres.id))
-    .map((genres) => genres.name)
-    .join(', ');
+  let genresMovie;
+
+  if ('genre_ids' in movie) {
+    genresMovie = genresList
+      .filter((genres) => movie.genre_ids.includes(genres.id))
+      .map((genres) => genres.name)
+      .join(', ');
+  } else {
+    genresMovie = movie.genres.map((genre) => genre.name).join(', ');
+  }
 
   let count;
   if (+vote_count > 999) {
@@ -55,7 +60,7 @@ export default function MovieCard({
   }
 
   return (
-    <Card radius='lg' p={24} className={classes.card}>
+    <Card radius='lg' p={'lg'} className={classes.card}>
       <Group wrap='nowrap' gap={0} align='flex-start'>
         <Image
           src={
@@ -104,7 +109,7 @@ export default function MovieCard({
               </Text>
             </Group>
             <Text size='md' c='black'>
-              {genres}
+              {genresMovie}
             </Text>
           </Group>
         </div>
@@ -113,16 +118,18 @@ export default function MovieCard({
       <Group gap={'4px'} wrap='nowrap' className={classes.ratingWrapper}>
         <IconStarFilled
           color={
-            `${id}` in rating ? theme.colors.purple[5] : theme.colors.grey[3]
+            `${id}` in storageData
+              ? theme.colors.purple[5]
+              : theme.colors.grey[3]
           }
           onClick={open}
           style={{ cursor: 'pointer', width: '28px', height: '28px' }}
         />
         <Text className={classes.rating}>
-          {`${id}` in rating ? rating[id] : ''}
+          {`${id}` in storageData ? storageData[id].rating : ''}
         </Text>
       </Group>
-      <Modal opened={opened} close={close} title={original_title} id={id} />
+      <Modal opened={opened} close={close} movie={movie} />
     </Card>
   );
 }

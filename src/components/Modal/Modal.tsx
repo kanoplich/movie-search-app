@@ -12,38 +12,33 @@ import {
 } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useStorage } from '@hooks/useStorage';
+import { Movie, MovieDetails } from '@customTypes/types';
 import classes from './Modal.module.css';
 
 type ModalProps = {
-  id: number;
+  movie: Movie | MovieDetails;
   opened: boolean;
   close: () => void;
-  title: string;
 };
 
-export default function Modal({
-  opened,
-  close,
-  title,
-  id,
-}: Readonly<ModalProps>) {
+export default function Modal({ movie, opened, close }: Readonly<ModalProps>) {
   const theme = useMantineTheme();
   const [currentRating, setCurrentRating] = useState<number>(0);
-  const { rating, addRating, removeRating } = useStorage();
+  const { storageData, addRating, removeRating } = useStorage();
 
   useEffect(() => {
-    if (`${id}` in rating) {
-      setCurrentRating(+rating[id]);
+    if (`${movie.id}` in storageData) {
+      setCurrentRating(+storageData[movie.id].rating);
     }
   }, []);
 
   const handleClickSave = () => {
-    addRating(id, currentRating.toString());
+    addRating(movie.id, { rating: currentRating.toString(), data: movie });
     close();
   };
 
   const handleClickRemove = () => {
-    removeRating(id);
+    removeRating(movie.id);
     setCurrentRating(0);
     close();
   };
@@ -66,7 +61,7 @@ export default function Modal({
       </Flex>
       <Divider className={classes.divider} />
       <Title order={3} className={classes.title3}>
-        {title}
+        {movie.original_title}
       </Title>
       <Rating
         className={classes.rating}

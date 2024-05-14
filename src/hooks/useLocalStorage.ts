@@ -1,7 +1,7 @@
-import { LocalOptions } from '@customTypes/types';
+import { StorageData } from '@customTypes/types';
 import { useState, useEffect } from 'react';
 
-const useLocalStorage = (key: string, defaultValue: LocalOptions) => {
+const useLocalStorage = (key: string, defaultValue: StorageData) => {
   const [value, setValue] = useState(() => {
     let storageValue;
     try {

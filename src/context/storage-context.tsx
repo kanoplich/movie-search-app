@@ -1,6 +1,6 @@
 'use client';
 
-import { LocalOptions } from '@customTypes/types';
+import { StorageData, StorageDataId } from '@customTypes/types';
 import useLocalStorage from '@hooks/useLocalStorage';
 import { isObject } from '@utils/isObject';
 import { createContext, useEffect, useMemo, useState } from 'react';
@@ -10,8 +10,8 @@ type Props = {
 };
 
 const INITIAL_STATE = {
-  rating: {} as LocalOptions,
-  addRating: (id: number, value: string) => {},
+  storageData: {} as StorageData,
+  addRating: (id: number, value: StorageDataId) => {},
   removeRating: (id: number) => {},
 };
 
@@ -19,7 +19,7 @@ export const StorageContext = createContext(INITIAL_STATE);
 
 const StorageContextProvider = ({ children }: Props) => {
   const [data, setData] = useLocalStorage('rating', {});
-  const [rating, setRating] = useState<LocalOptions>({});
+  const [storageData, setStorageData] = useState<StorageData>({});
 
   useEffect(() => {
     if (!isObject(data)) {
@@ -27,31 +27,31 @@ const StorageContextProvider = ({ children }: Props) => {
     }
 
     if (data) {
-      setRating(data);
+      setStorageData(data);
     }
   }, []);
 
   useEffect(() => {
-    setData(rating);
-  }, [rating]);
+    setData(storageData);
+  }, [storageData]);
 
-  const addRating = (id: number, value: string) => {
-    setRating((prev) => ({ ...prev, [id]: value }));
+  const addRating = (id: number, value: StorageDataId) => {
+    setStorageData((prev) => ({ ...prev, [id]: value }));
   };
 
   const removeRating = (id: number) => {
-    const newRating = { ...rating };
+    const newRating = { ...storageData };
     delete newRating[id];
-    setRating(newRating);
+    setStorageData(newRating);
   };
 
   const value = useMemo(() => {
     return {
-      rating,
+      storageData,
       addRating,
       removeRating,
     };
-  }, [rating]);
+  }, [storageData]);
 
   return (
     <StorageContext.Provider value={value}>{children}</StorageContext.Provider>

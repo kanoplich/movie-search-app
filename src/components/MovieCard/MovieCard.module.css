@@ -59,3 +59,10 @@
   height: 170px;
   padding-left: var(--mantine-spacing-md);
 }
+
+.titleFull {
+  font-size: var(--mantine-font-size-xl);
+  font-weight: 600;
+  letter-spacing: 0.32px;
+  color: var(--mantine-color-purple-5);
+}

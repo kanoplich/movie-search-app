@@ -1,0 +1,24 @@
+.card {
+  background-color: var(--mantine-color-body);
+  width: calc(100% - 10px);
+  margin-top: calc(var(--mantine-spacing-md) * 1.25);
+  margin-bottom: calc(var(--mantine-spacing-xl) * 3);
+}
+
+.title {
+  margin-bottom: var(--mantine-spacing-md);
+  font-size: var(--mantine-font-size-xl);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.text {
+  font-size: var(--mantine-font-size-md);
+  font-weight: 400;
+  line-height: var(--mantine-line-height-xs);
+}
+
+.divider {
+  margin-top: calc(var(--mantine-spacing-md) * 1.25);
+  margin-bottom: calc(var(--mantine-spacing-md) * 1.25);
+}

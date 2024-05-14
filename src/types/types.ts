@@ -63,8 +63,33 @@ export type MovieDetails = {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  videos: {
+    results: VideosResults[];
+  };
 };
 
-export type LocalOptions = {
+type VideosResults = {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: string;
+  id: string;
+};
+
+export type StorageDataId = {
+  rating: string;
+  data: Movie | MovieDetails;
+};
+
+export type StorageData = {
+  [key: string]: StorageDataId;
+};
+
+export type SortOptions = {
   [key: string]: string;
 };

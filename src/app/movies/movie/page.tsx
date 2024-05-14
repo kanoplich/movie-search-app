@@ -1,9 +1,9 @@
 'use client';
 
-import FullCard from '@components/FullCard/FullCard';
 import { MovieDetails } from '@customTypes/types';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Card from '@components/Card/Card';
 import Loading from '../../loading';
 
 export default function Movie() {
@@ -27,5 +27,5 @@ export default function Movie() {
     fetchData();
   }, [searchParams]);
 
-  return <>{!data ? <Loading /> : <FullCard props={data} />}</>;
+  return <>{!data ? <Loading /> : <Card props={data} />}</>;
 }

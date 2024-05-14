@@ -1,0 +1,16 @@
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+  width: calc(100% - 20px);
+}
+
+.breadcrumbsWrapper {
+  margin-top: calc(var(--mantine-spacing-xl) * 1.25);
+}
+
+.breadcrumbs {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 400;
+  line-height: var(--mantine-line-height-xs);
+  color: var(--mantine-color-purple-5);
+}

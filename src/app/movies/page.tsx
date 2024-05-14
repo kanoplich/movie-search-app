@@ -3,7 +3,7 @@
 import { Title, Container, Flex } from '@mantine/core';
 import Filter from '@components/Filter/Filter';
 import Sort from '@components/Sort/Sort';
-import MovieCard from '@components/Card/MovieCard';
+import MovieCard from '@components/MovieCard/MovieCard';
 import { Data, General, Genres } from '@customTypes/types';
 import { useEffect, useState } from 'react';
 import Loading from '../loading';

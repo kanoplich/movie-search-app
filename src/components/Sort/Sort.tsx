@@ -2,7 +2,7 @@
 
 import { Flex, Select } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import { LocalOptions } from '@customTypes/types';
+import { SortOptions } from '@customTypes/types';
 import classes from './Sort.module.css';
 
 type SortProps = {
@@ -13,7 +13,7 @@ export default function Sort({ setSort }: Readonly<SortProps>) {
   const [value, setValue] = useState<string | null>('Most Popular');
 
   useEffect(() => {
-    const sortData: LocalOptions = {
+    const sortData: SortOptions = {
       'Most Popular': 'popularity.desc',
       'Least Popular': 'popularity.asc',
       'Most Rated': 'vote_average.desc',

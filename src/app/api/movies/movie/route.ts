@@ -5,7 +5,7 @@ export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const id = searchParams.get('id');
 
-  const url = `https://api.themoviedb.org/3/movie/${id}`;
+  const url = `https://api.themoviedb.org/3/movie/${id}?append_to_response=videos`;
   const options = {
     headers: {
       accept: 'application/json',
