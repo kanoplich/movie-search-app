@@ -1,32 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Group, Title, Image } from '@mantine/core';
+import { Group, Title, Image, Anchor } from '@mantine/core';
 import { poppins } from '@assets/fonts/fonts';
+import Link from 'next/link';
 import classes from './Navbar.module.css';
-
-const data = [
-  { link: '', label: 'Movies' },
-  { link: '', label: 'Rated movies' },
-];
 
 export default function Navbar() {
   const [active, setActive] = useState('Movies');
-
-  const links = data.map((item) => (
-    <a
-      className={classes.link}
-      data-active={item.label === active || undefined}
-      href={item.link}
-      key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-      }}
-    >
-      <span>{item.label}</span>
-    </a>
-  ));
 
   return (
     <nav className={classes.navbar}>
@@ -37,7 +18,28 @@ export default function Navbar() {
             ArrowFlicks
           </Title>
         </Group>
-        {links}
+        <Anchor
+          component={Link}
+          className={classes.link}
+          href={'/movies'}
+          data-active={'Movies' === active || undefined}
+          onClick={() => {
+            setActive('Movies');
+          }}
+        >
+          Movies
+        </Anchor>
+        <Anchor
+          component={Link}
+          className={classes.link}
+          href={'/rated'}
+          data-active={'Rated movies' === active || undefined}
+          onClick={() => {
+            setActive('Rated movies');
+          }}
+        >
+          Rated movies
+        </Anchor>
       </div>
     </nav>
   );

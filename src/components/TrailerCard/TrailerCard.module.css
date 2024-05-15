@@ -22,3 +22,27 @@
   margin-top: calc(var(--mantine-spacing-md) * 1.25);
   margin-bottom: calc(var(--mantine-spacing-md) * 1.25);
 }
+
+.listItem {
+  font-size: var(--mantine-font-size-md);
+  font-weight: 700;
+  line-height: var(--mantine-line-height-xs);
+  margin-bottom: var(--mantine-spacing-sm);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.iconWrapper {
+  border: 1px solid #f1f1f1;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+.icon {
+  object-fit: contain;
+}

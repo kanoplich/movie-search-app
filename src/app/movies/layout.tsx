@@ -1,3 +1,5 @@
+'use client';
+
 import { Flex } from '@mantine/core';
 import Navbar from '@components/Navbar/Navbar';
 

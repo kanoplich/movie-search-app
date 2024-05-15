@@ -6,9 +6,9 @@ import Sort from '@components/Sort/Sort';
 import MovieCard from '@components/MovieCard/MovieCard';
 import { Data, General, Genres } from '@customTypes/types';
 import { useEffect, useState } from 'react';
-import Loading from '../loading';
 import Pagination from '@components/Pagination/Pagination';
 import ErrorMovies from '@components/ErrorMovies/ErrorMovies';
+import Loading from '../loading';
 import classes from './movies.module.css';
 
 export default function Movies() {

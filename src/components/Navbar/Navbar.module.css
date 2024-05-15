@@ -43,6 +43,7 @@
 
   @mixin hover {
     color: var(--mantine-color-purple-4);
+    text-decoration: none;
   }
 
   &[data-active] {

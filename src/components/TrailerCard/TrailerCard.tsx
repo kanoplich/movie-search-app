@@ -1,13 +1,15 @@
-import { MovieDetails } from '@customTypes/types';
 import {
   AspectRatio,
   Card,
   Text,
   Title,
   Divider,
-  Group,
   Image,
+  List,
+  ListItem,
+  ThemeIcon,
 } from '@mantine/core';
+import { MovieDetails } from '@customTypes/types';
 import classes from './TrailerCard.module.css';
 
 type TrailerCardProps = {
@@ -15,7 +17,7 @@ type TrailerCardProps = {
 };
 
 export default function TrailerCard({ movie }: Readonly<TrailerCardProps>) {
-  const { overview, videos } = movie;
+  const { overview, videos, production_companies } = movie;
 
   return (
     <Card radius='lg' p={'lg'} className={classes.card}>
@@ -26,7 +28,7 @@ export default function TrailerCard({ movie }: Readonly<TrailerCardProps>) {
           </Title>
           <AspectRatio ratio={16 / 9} maw={500}>
             <iframe
-              src={`https://youtube.com/watch?v=${videos.results[0].key}`}
+              src={`https://www.youtube.com/embed/${videos.results[0].key}`}
               title='YouTube video player'
               style={{
                 borderRadius: '9px',
@@ -47,10 +49,30 @@ export default function TrailerCard({ movie }: Readonly<TrailerCardProps>) {
       <Title order={3} className={classes.title}>
         Production
       </Title>
-      <Group gap={'4px'} wrap='nowrap'>
-        <Image radius='md' src='' alt='' />
-        <Text>Company</Text>
-      </Group>
+      <List listStyleType='none'>
+        {production_companies &&
+          production_companies.map((company) => (
+            <ListItem
+              className={classes.listItem}
+              key={company.id}
+              icon={
+                <ThemeIcon className={classes.iconWrapper}>
+                  <Image
+                    className={classes.icon}
+                    src={
+                      company.logo_path
+                        ? `https://image.tmdb.org/t/p/w500${company.logo_path}`
+                        : '/clapperboard.svg'
+                    }
+                    alt={company.name}
+                  />
+                </ThemeIcon>
+              }
+            >
+              {company.name}
+            </ListItem>
+          ))}
+      </List>
     </Card>
   );
 }
