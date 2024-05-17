@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Group, Title, Image, Anchor } from '@mantine/core';
 import { poppins } from '@assets/fonts/fonts';
 import Link from 'next/link';
@@ -8,6 +8,10 @@ import classes from './Navbar.module.css';
 
 export default function Navbar() {
   const [active, setActive] = useState('Movies');
+
+  useEffect(() => {
+    window.location.pathname === '/rated' && setActive('Rated movies');
+  }, []);
 
   return (
     <nav className={classes.navbar}>

@@ -1,12 +1,11 @@
 'use client';
 
 import { Flex, Select, NumberInput, Button, MultiSelect } from '@mantine/core';
-import { Genres } from '@customTypes/types';
 import { useEffect, useState } from 'react';
+import { useStorage } from '@hooks/useStorage';
 import classes from './Filter.module.css';
 
 type FilterProps = {
-  genres: Genres[];
   setYear: (year: string) => void;
   setWithGenres: (genres: string) => void;
   setAverageGte: (average: number | string) => void;
@@ -15,7 +14,6 @@ type FilterProps = {
 };
 
 export default function Filter({
-  genres,
   setYear,
   setWithGenres,
   setAverageGte,
@@ -26,8 +24,9 @@ export default function Filter({
   const [yearSelected, setYearSelected] = useState<string | null>(null);
   const [firstValue, setFirstValue] = useState<number | string>('');
   const [secondValue, setSecondValue] = useState<number | string>('');
+  const { genresList } = useStorage();
 
-  const genresData = genres.map((genres) => genres.name);
+  const genresData = genresList.map((genres) => genres.name);
   const yearData = [...Array(145)].map((_, i) => `${2031 - i}`);
 
   const handleReset = () => {
@@ -40,7 +39,7 @@ export default function Filter({
 
   useEffect(() => {
     yearSelected === null ? setYear('') : setYear(yearSelected);
-    const genresItem = genres
+    const genresItem = genresList
       .filter((genre) => genresSelected.includes(genre.name))
       .map((item) => item.id)
       .join(',');

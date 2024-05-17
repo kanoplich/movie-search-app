@@ -10,25 +10,7 @@ export async function GET(req: NextRequest) {
   const averageGte = searchParams.get('vote_average.gte');
   const averageLte = searchParams.get('vote_average.lte');
 
-  let url1 = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sort}`;
-  const url2 = 'https://api.themoviedb.org/3/genre/movie/list';
-
-  if (year) {
-    url1 += `&primary_release_year=${year}`;
-  }
-
-  if (genre) {
-    url1 += `&with_genres=${genre}`;
-  }
-
-  if (averageGte) {
-    url1 += `&vote_average.gte=${averageGte}`;
-  }
-
-  if (averageLte) {
-    url1 += `&vote_average.lte=${averageLte}`;
-  }
-
+  let url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=${sort}`;
   const options = {
     headers: {
       accept: 'application/json',
@@ -36,12 +18,23 @@ export async function GET(req: NextRequest) {
     },
   };
 
-  const requests = [
-    fetch(url1, options).then((res) => res.json()),
-    fetch(url2, options).then((res) => res.json()),
-  ];
+  if (year) {
+    url += `&primary_release_year=${year}`;
+  }
 
-  const [data, genres] = await Promise.all(requests);
+  if (genre) {
+    url += `&with_genres=${genre}`;
+  }
 
-  return NextResponse.json({ data, genres });
+  if (averageGte) {
+    url += `&vote_average.gte=${averageGte}`;
+  }
+
+  if (averageLte) {
+    url += `&vote_average.lte=${averageLte}`;
+  }
+
+  const data = await fetch(url, options).then((res) => res.json());
+
+  return NextResponse.json(data);
 }

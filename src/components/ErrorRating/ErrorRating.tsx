@@ -3,7 +3,7 @@ import { Button, Flex, Image, Text } from '@mantine/core';
 import { useRouter } from 'next/navigation';
 import classes from './ErrorRating.module.css';
 
-export default function ErrorMovies() {
+export default function ErrorRating() {
   const router = useRouter();
 
   const handleClick = () => {

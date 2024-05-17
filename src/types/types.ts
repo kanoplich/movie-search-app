@@ -1,10 +1,3 @@
-export type General = {
-  data: Data;
-  genres: {
-    genres: Genres[];
-  };
-};
-
 export type Data = {
   page: number;
   results: Movie[];
@@ -32,6 +25,10 @@ export type Movie = {
 export type Genres = {
   id: number;
   name: string;
+};
+
+export type GenresList = {
+  genres: Genres[];
 };
 
 export type Companies = {

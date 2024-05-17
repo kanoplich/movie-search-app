@@ -1,6 +1,6 @@
 'use client';
 
-import { createTheme, Input } from '@mantine/core';
+import { createTheme } from '@mantine/core';
 
 export const theme = createTheme({
   fontFamily: 'Inter, sans-serif',

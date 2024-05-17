@@ -4,28 +4,26 @@ import { Title, Container, Flex } from '@mantine/core';
 import Filter from '@components/Filter/Filter';
 import Sort from '@components/Sort/Sort';
 import MovieCard from '@components/MovieCard/MovieCard';
-import { Data, General, Genres } from '@customTypes/types';
+import { Data } from '@customTypes/types';
 import { useEffect, useState } from 'react';
 import Pagination from '@components/Pagination/Pagination';
 import ErrorMovies from '@components/ErrorMovies/ErrorMovies';
-import Loading from '../loading';
+import Loader from '@components/Loader/Loader';
 import classes from './movies.module.css';
 
 export default function Movies() {
   const [data, setData] = useState<Data | null>();
-  const [genresList, setGenresList] = useState<Genres[]>([]);
-
   const [year, setYear] = useState<string>('');
   const [withGenres, setWithGenres] = useState<string>('');
   const [averageGte, setAverageGte] = useState<number | string>('');
   const [averageLte, setAverageLte] = useState<number | string>('');
   const [sort, setSort] = useState<string>('popularity.desc');
-  const [page, setPage] = useState<number>(1);
+  const [activePage, setActivePage] = useState<number>(1);
 
   useEffect(() => {
     setData(null);
 
-    let url = `/api/movies?sort_by=${sort}&page=${page}`;
+    let url = `/api/movies?sort_by=${sort}&page=${activePage}`;
 
     if (year) {
       url += `&primary_release_year=${year}`;
@@ -47,13 +45,12 @@ export default function Movies() {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const { data, genres }: General = await response.json();
+      const data: Data = await response.json();
       setData(data);
-      setGenresList(genres.genres);
     };
 
     fetchData();
-  }, [year, withGenres, averageGte, averageLte, sort, page]);
+  }, [year, withGenres, averageGte, averageLte, sort, activePage]);
 
   return (
     <Container className={classes.container}>
@@ -61,12 +58,11 @@ export default function Movies() {
         Movies
       </Title>
       <Filter
-        genres={genresList}
         setYear={setYear}
         setWithGenres={setWithGenres}
         setAverageGte={setAverageGte}
         setAverageLte={setAverageLte}
-        setPage={setPage}
+        setPage={setActivePage}
       />
       <Sort setSort={setSort} />
       <Flex
@@ -77,10 +73,10 @@ export default function Movies() {
         wrap='wrap'
       >
         {!data ? (
-          <Loading />
+          <Loader />
         ) : (
           data.results.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} genresList={genresList} />
+            <MovieCard key={movie.id} movie={movie} />
           ))
         )}
       </Flex>
@@ -88,7 +84,13 @@ export default function Movies() {
         <ErrorMovies />
       ) : (
         data && (
-          <Pagination page={page} setPage={setPage} pages={data.total_pages} />
+          <div className={classes.pagination}>
+            <Pagination
+              total={data.total_pages}
+              setActivePage={setActivePage}
+              activePage={activePage}
+            />
+          </div>
         )
       )}
     </Container>

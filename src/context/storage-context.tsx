@@ -1,6 +1,11 @@
 'use client';
 
-import { StorageData, StorageDataId } from '@customTypes/types';
+import {
+  Genres,
+  GenresList,
+  StorageData,
+  StorageDataId,
+} from '@customTypes/types';
 import useLocalStorage from '@hooks/useLocalStorage';
 import { isObject } from '@utils/isObject';
 import { createContext, useEffect, useMemo, useState } from 'react';
@@ -13,6 +18,7 @@ const INITIAL_STATE = {
   storageData: {} as StorageData,
   addRating: (id: number, value: StorageDataId) => {},
   removeRating: (id: number) => {},
+  genresList: [] as Genres[],
 };
 
 export const StorageContext = createContext(INITIAL_STATE);
@@ -20,6 +26,24 @@ export const StorageContext = createContext(INITIAL_STATE);
 const StorageContextProvider = ({ children }: Props) => {
   const [data, setData] = useLocalStorage('rating', {});
   const [storageData, setStorageData] = useState<StorageData>({});
+  const [genresList, setGenresList] = useState<Genres[]>([]);
+
+  useEffect(() => {
+    let url = `/api`;
+
+    const fetchData = async () => {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const { genres }: GenresList = await response.json();
+      setGenresList(genres);
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (!isObject(data)) {
@@ -47,11 +71,12 @@ const StorageContextProvider = ({ children }: Props) => {
 
   const value = useMemo(() => {
     return {
+      genresList,
       storageData,
       addRating,
       removeRating,
     };
-  }, [storageData]);
+  }, [storageData, genresList]);
 
   return (
     <StorageContext.Provider value={value}>{children}</StorageContext.Provider>

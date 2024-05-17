@@ -1,16 +1,5 @@
-import { Loader } from '@mantine/core';
+import Loader from '@components/Loader/Loader';
 
 export default function Loading() {
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-      }}
-    >
-      <Loader color='#9854F6' />
-    </div>
-  );
+  return <Loader />;
 }

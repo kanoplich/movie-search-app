@@ -19,13 +19,9 @@ import classes from './MovieCard.module.css';
 
 type MovieCardProps = {
   movie: Movie | MovieDetails;
-  genresList: Genres[];
 };
 
-export default function MovieCard({
-  movie,
-  genresList,
-}: Readonly<MovieCardProps>) {
+export default function MovieCard({ movie }: Readonly<MovieCardProps>) {
   const theme = useMantineTheme();
   const {
     id,
@@ -37,7 +33,7 @@ export default function MovieCard({
   } = movie;
 
   const [opened, { open, close }] = useDisclosure(false);
-  const { storageData } = useStorage();
+  const { storageData, genresList } = useStorage();
 
   let genresMovie;
 

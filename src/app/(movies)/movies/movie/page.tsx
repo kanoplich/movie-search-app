@@ -4,7 +4,7 @@ import { MovieDetails } from '@customTypes/types';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Card from '@components/Card/Card';
-import Loading from '../../loading';
+import Loading from '../../../loading';
 
 export default function Movie() {
   const searchParams = useSearchParams();
