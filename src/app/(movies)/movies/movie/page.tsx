@@ -15,16 +15,11 @@ export default function Movie() {
 
     const fetchData = async () => {
       const response = await fetch(`/api/movies/movie?id=${id}`);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
       const data = await response.json();
       setData(data);
     };
 
-    fetchData();
+    fetchData().catch((e) => console.log('Failed to run promise', e));
   }, [searchParams]);
 
   return <>{!data ? <Loading /> : <Card props={data} />}</>;

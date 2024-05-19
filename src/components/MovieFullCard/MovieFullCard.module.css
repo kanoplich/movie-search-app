@@ -36,16 +36,6 @@
   color: var(--mantine-color-grey-6);
 }
 
-.wrapper {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: var(--mantine-spacing-sm);
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
 .ratingWrapper {
   position: absolute;
   right: 24px;
@@ -74,11 +64,6 @@
   padding-left: var(--mantine-spacing-md);
 }
 
-.group {
-  max-width: 140px;
-  width: 100%;
-}
-
 @media (max-width: 980px) {
   .groupWrapper {
     flex-direction: column;
@@ -89,6 +74,10 @@
   .card {
     padding: var(--mantine-spacing-sm);
   }
+
+  .image {
+    padding: var(--mantine-spacing-sm);
+  }
 }
 
 @media (max-width: 430px) {
@@ -96,14 +85,11 @@
     max-width: 100px;
   }
 
-  .image {
-    height: 170px;
-    width: 119px;
+  .body {
+    min-height: 302px;
   }
-}
 
-@media (max-width: 390px) {
-  .rating {
-    display: none;
+  .image {
+    width: 100%;
   }
 }

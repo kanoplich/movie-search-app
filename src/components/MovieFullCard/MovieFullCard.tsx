@@ -12,8 +12,9 @@ import {
 import { IconStarFilled } from '@tabler/icons-react';
 import { MovieDetails } from '@customTypes/types';
 import Modal from '@components/Modal/Modal';
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import { useStorage } from '@hooks/useStorage';
+import Description from '@components/Description/Description';
 import classes from './MovieFullCard.module.css';
 
 type MovieFullCardProps = {
@@ -22,7 +23,6 @@ type MovieFullCardProps = {
 
 export default function MovieFullCard({ movie }: Readonly<MovieFullCardProps>) {
   const theme = useMantineTheme();
-  const matches = useMediaQuery('(max-width: 430px)');
   const {
     id,
     original_title,
@@ -54,6 +54,12 @@ export default function MovieFullCard({ movie }: Readonly<MovieFullCardProps>) {
 
   const genresList = genres.map((genre) => genre.name).join(', ');
   const options = { year: 'numeric', month: 'long', day: 'numeric' } as const;
+  const date = new Date(release_date).toLocaleDateString('en-US', options);
+  const money = budget.toLocaleString('en-US');
+  const income = revenue.toLocaleString('en-US');
+
+  const title = ['Duration', 'Premiere', 'Budget', 'Gross worldwide', 'Genres'];
+  const data = [time, date, money, income, genresList];
 
   return (
     <Card radius='lg' className={classes.card}>
@@ -97,56 +103,9 @@ export default function MovieFullCard({ movie }: Readonly<MovieFullCardProps>) {
           </Box>
 
           <Box>
-            <Group wrap='nowrap' gap='xs' className={classes.wrapper}>
-              <Group gap='xs' wrap='nowrap' className={classes.group}>
-                <Text size={matches ? 'xs' : 'md'} c={theme.colors.grey[6]}>
-                  Duration
-                </Text>
-              </Group>
-              <Text size={matches ? 'xs' : 'md'} c='black'>
-                {time}
-              </Text>
-            </Group>
-            <Group wrap='nowrap' gap='xs' className={classes.wrapper}>
-              <Group gap='xs' wrap='nowrap' className={classes.group}>
-                <Text size={matches ? 'xs' : 'md'} c={theme.colors.grey[6]}>
-                  Premiere
-                </Text>
-              </Group>
-              <Text size={matches ? 'xs' : 'md'} c='black'>
-                {new Date(release_date).toLocaleDateString('en-US', options)}
-              </Text>
-            </Group>
-            <Group wrap='nowrap' gap='xs' className={classes.wrapper}>
-              <Group gap='xs' wrap='nowrap' className={classes.group}>
-                <Text size={matches ? 'xs' : 'md'} c={theme.colors.grey[6]}>
-                  Budget
-                </Text>
-              </Group>
-              <Text size={matches ? 'xs' : 'md'} c='black'>
-                ${budget.toLocaleString('en-US')}
-              </Text>
-            </Group>
-            <Group wrap='nowrap' gap='xs' className={classes.wrapper}>
-              <Group gap='xs' wrap='nowrap' className={classes.group}>
-                <Text size={matches ? 'xs' : 'md'} c={theme.colors.grey[6]}>
-                  Gross worldwide
-                </Text>
-              </Group>
-              <Text size={matches ? 'xs' : 'md'} c='black'>
-                {revenue.toLocaleString('en-US')}
-              </Text>
-            </Group>
-            <Group wrap='nowrap' gap='xs' className={classes.wrapper}>
-              <Group gap='xs' wrap='nowrap' className={classes.group}>
-                <Text size={matches ? 'xs' : 'md'} c={theme.colors.grey[6]}>
-                  Genres
-                </Text>
-              </Group>
-              <Text size={matches ? 'xs' : 'md'} c='black'>
-                {genresList}
-              </Text>
-            </Group>
+            {title.map((item, i) => (
+              <Description key={item} title={item} value={data[i]} />
+            ))}
           </Box>
         </div>
       </Group>

@@ -15,8 +15,10 @@
   color: var(--mantine-color-purple-5);
 }
 
-@media (max-width: 390px) {
-  .breadcrumbsWrapper {
-    display: none;
-  }
+.root {
+  flex-wrap: wrap;
+}
+
+.breadcrumb {
+  white-space: wrap;
 }

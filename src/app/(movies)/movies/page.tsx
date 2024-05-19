@@ -40,16 +40,11 @@ export default function Movies() {
 
     const fetchData = async () => {
       const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
       const data: Data = await response.json();
       setData(data);
     };
 
-    fetchData();
+    fetchData().catch((e) => console.log('Failed to run promise', e));
   }, [year, withGenres, averageGte, averageLte, sort, activePage]);
 
   return (

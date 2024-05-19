@@ -35,14 +35,11 @@ const StorageContextProvider = ({ children }: Props) => {
     let url = `/api`;
     const fetchData = async () => {
       const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
       const { genres }: GenresList = await response.json();
       setGenresList(genres);
     };
 
-    fetchData();
+    fetchData().catch((e) => console.log('Failed to run promise', e));
 
     if (!isObject(data)) {
       setData({});

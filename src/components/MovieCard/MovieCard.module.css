@@ -106,9 +106,3 @@
     top: 12px;
   }
 }
-
-@media (max-width: 390px) {
-  .rating {
-    display: none;
-  }
-}

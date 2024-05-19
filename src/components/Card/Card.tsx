@@ -18,7 +18,12 @@ export default function Card({ props }: Readonly<CardProps>) {
         justify={'flex-start'}
         align={'center'}
       >
-        <Breadcrumbs>
+        <Breadcrumbs
+          classNames={{
+            root: classes.root,
+            breadcrumb: classes.breadcrumb,
+          }}
+        >
           <Anchor className={classes.breadcrumbs} href='/movies'>
             Movies
           </Anchor>
