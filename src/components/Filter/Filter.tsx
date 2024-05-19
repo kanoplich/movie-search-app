@@ -1,6 +1,14 @@
 'use client';
 
-import { Flex, Select, NumberInput, Button, MultiSelect } from '@mantine/core';
+import {
+  Flex,
+  Select,
+  NumberInput,
+  Button,
+  MultiSelect,
+  Image,
+  Group,
+} from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useStorage } from '@hooks/useStorage';
 import classes from './Filter.module.css';
@@ -24,6 +32,9 @@ export default function Filter({
   const [yearSelected, setYearSelected] = useState<string | null>(null);
   const [firstValue, setFirstValue] = useState<number | string>('');
   const [secondValue, setSecondValue] = useState<number | string>('');
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [isSelect, setIsSelect] = useState<boolean>(false);
+  const [isMultiSelect, setIsMultiSelect] = useState<boolean>(false);
   const { genresList } = useStorage();
 
   const genresData = genresList.map((genres) => genres.name);
@@ -35,9 +46,19 @@ export default function Filter({
     setFirstValue('');
     setSecondValue('');
     setPage(1);
+    setIsDisabled(true);
   };
 
   useEffect(() => {
+    if (
+      yearSelected ||
+      genresSelected.length > 0 ||
+      typeof firstValue === 'number' ||
+      typeof secondValue === 'number'
+    ) {
+      setIsDisabled(false);
+    }
+
     yearSelected === null ? setYear('') : setYear(yearSelected);
     const genresItem = genresList
       .filter((genre) => genresSelected.includes(genre.name))
@@ -50,17 +71,16 @@ export default function Filter({
   }, [yearSelected, genresSelected, firstValue, secondValue, genresSelected]);
 
   return (
-    <Flex align={'flex-end'} gap={'md'}>
+    <Flex align={'flex-end'} gap={'md'} wrap={'wrap'}>
       <MultiSelect
         classNames={{
+          wrapper: classes.wrapper,
           input: classes.input,
           label: classes.label,
           pill: classes.pill,
-          section: classes.section,
           option: classes.option,
           pillsList: classes.pillList,
         }}
-        style={{ maxWidth: '280px', width: '100%' }}
         withCheckIcon={false}
         label='Genres'
         radius={'md'}
@@ -68,15 +88,25 @@ export default function Filter({
         data={genresData}
         onChange={setGenresSelected}
         value={genresSelected}
+        onDropdownOpen={() => setIsMultiSelect(true)}
+        onDropdownClose={() => setIsMultiSelect(false)}
+        rightSectionWidth={'48'}
+        maxValues={3}
+        rightSection={
+          isMultiSelect ? (
+            <Image src='/up.svg' alt='up' />
+          ) : (
+            <Image src='down.svg' alt='down' />
+          )
+        }
       />
       <Select
         classNames={{
+          wrapper: classes.wrapper,
           input: classes.input,
           label: classes.label,
-          section: classes.section,
           option: classes.option,
         }}
-        style={{ maxWidth: '280px', width: '100%' }}
         withCheckIcon={false}
         label='Release year'
         radius={'md'}
@@ -84,45 +114,55 @@ export default function Filter({
         data={yearData}
         onChange={setYearSelected}
         value={yearSelected}
+        onDropdownOpen={() => setIsSelect(true)}
+        onDropdownClose={() => setIsSelect(false)}
+        rightSectionWidth={'48'}
+        rightSection={
+          isSelect ? (
+            <Image src='/up.svg' alt='up' />
+          ) : (
+            <Image src='down.svg' alt='down' />
+          )
+        }
       />
-      <NumberInput
-        classNames={{
-          input: classes.input,
-          label: classes.label,
-          section: classes.sectionNumber,
-          control: classes.control,
-        }}
-        style={{ maxWidth: '138px' }}
-        label='Rating'
-        radius={'md'}
-        onChange={(value) => setFirstValue(value)}
-        placeholder='From'
-        value={firstValue}
-        min={0}
-        max={typeof secondValue === 'number' ? secondValue : 10}
-      />
-      <NumberInput
-        classNames={{
-          input: classes.input,
-          label: classes.label,
-          section: classes.sectionNumber,
-          control: classes.control,
-        }}
-        style={{ maxWidth: '138px' }}
-        radius={'md'}
-        label=' '
-        onChange={(value) => setSecondValue(value)}
-        placeholder='To'
-        value={secondValue}
-        min={typeof firstValue === 'number' ? firstValue : 0}
-        max={10}
-      />
+      <Group align='end' gap={'xs'}>
+        <NumberInput
+          classNames={{
+            wrapper: classes.wrapperNumber,
+            label: classes.label,
+            input: classes.input,
+            controls: classes.controls,
+            control: classes.control,
+          }}
+          label='Ratings'
+          radius={'md'}
+          onChange={(value) => setFirstValue(value)}
+          placeholder='From'
+          value={firstValue}
+          min={0}
+          max={typeof secondValue === 'number' ? secondValue : 10}
+        />
+        <NumberInput
+          classNames={{
+            wrapper: classes.wrapperNumber,
+            input: classes.input,
+            controls: classes.controls,
+            control: classes.control,
+          }}
+          radius={'md'}
+          label=' '
+          onChange={(value) => setSecondValue(value)}
+          placeholder='To'
+          value={secondValue}
+          min={typeof firstValue === 'number' ? firstValue : 0}
+          max={10}
+        />
+      </Group>
       <Button
-        classNames={{
-          root: classes.rootButton,
-          label: classes.labelButton,
-        }}
+        className={classes.btn}
+        variant='transparent'
         onClick={handleReset}
+        disabled={isDisabled}
       >
         Reset filters
       </Button>

@@ -19,6 +19,8 @@ const INITIAL_STATE = {
   addRating: (id: number, value: StorageDataId) => {},
   removeRating: (id: number) => {},
   genresList: [] as Genres[],
+  navigate: (value: string) => {},
+  active: 'Movies',
 };
 
 export const StorageContext = createContext(INITIAL_STATE);
@@ -27,29 +29,24 @@ const StorageContextProvider = ({ children }: Props) => {
   const [data, setData] = useLocalStorage('rating', {});
   const [storageData, setStorageData] = useState<StorageData>({});
   const [genresList, setGenresList] = useState<Genres[]>([]);
+  const [active, setActive] = useState<string>('Movies');
 
   useEffect(() => {
     let url = `/api`;
-
     const fetchData = async () => {
       const response = await fetch(url);
-
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
       const { genres }: GenresList = await response.json();
       setGenresList(genres);
     };
 
     fetchData();
-  }, []);
 
-  useEffect(() => {
     if (!isObject(data)) {
       setData({});
     }
-
     if (data) {
       setStorageData(data);
     }
@@ -69,14 +66,20 @@ const StorageContextProvider = ({ children }: Props) => {
     setStorageData(newRating);
   };
 
+  const navigate = (value: string) => {
+    setActive(value);
+  };
+
   const value = useMemo(() => {
     return {
       genresList,
       storageData,
       addRating,
       removeRating,
+      navigate,
+      active,
     };
-  }, [storageData, genresList]);
+  }, [genresList, storageData, active]);
 
   return (
     <StorageContext.Provider value={value}>{children}</StorageContext.Provider>

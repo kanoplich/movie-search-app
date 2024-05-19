@@ -26,6 +26,7 @@
   font-size: var(--mantine-font-size-xl);
   font-weight: 600;
   margin-top: calc(var(--mantine-spacing-md) * 3);
+  text-align: center;
 }
 
 .control {

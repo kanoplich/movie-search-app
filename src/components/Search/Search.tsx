@@ -27,10 +27,13 @@ export default function Search({ setMovies }: Readonly<SearchProps>) {
 
   return (
     <TextInput
-      className={classes.input}
+      classNames={{
+        wrapper: classes.wrapper,
+        input: classes.input,
+      }}
       radius='md'
       placeholder='Search movie title'
-      rightSectionWidth={98}
+      rightSectionWidth={'110'}
       onChange={(event) => setValue(event.currentTarget.value)}
       leftSection={
         <IconSearch style={{ width: rem(18), height: rem(18) }} stroke={1.5} />

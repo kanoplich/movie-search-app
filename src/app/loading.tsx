@@ -1,5 +1,9 @@
 import Loader from '@components/Loader/Loader';
 
 export default function Loading() {
-  return <Loader />;
+  return (
+    <div style={{ height: '100vh' }}>
+      <Loader />
+    </div>
+  );
 }

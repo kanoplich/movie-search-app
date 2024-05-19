@@ -42,27 +42,27 @@ export default function Rated() {
 
   return (
     <Container className={classes.container}>
-      <Title order={2} className={classes.title}>
-        Rated movies
-      </Title>
-      <Search setMovies={setMovies} />
-      <Flex
-        gap='md'
-        justify='flex-start'
-        align='flex-start'
-        direction='row'
-        wrap='wrap'
-      >
-        {movies.length > 0 ? items : <ErrorRating />}
-      </Flex>
-      {movies && (
-        <div className={classes.pagination}>
-          <Pagination
-            total={totalPage ?? 1}
-            setActivePage={setActivePage}
-            activePage={activePage}
-          />
-        </div>
+      {movies.length == 0 ? (
+        <ErrorRating />
+      ) : (
+        <>
+          <Flex className={classes.wrapper}>
+            <Title order={2} className={classes.title}>
+              Rated movies
+            </Title>
+            <Search setMovies={setMovies} />
+          </Flex>
+          <Flex className={classes.flex}>{items}</Flex>
+          {movies && (
+            <div className={classes.pagination}>
+              <Pagination
+                total={totalPage ?? 1}
+                setActivePage={setActivePage}
+                activePage={activePage}
+              />
+            </div>
+          )}
+        </>
       )}
     </Container>
   );

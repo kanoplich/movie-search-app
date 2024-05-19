@@ -3,6 +3,18 @@
   background-color: var(--mantine-color-body);
   width: calc(100% - 10px);
   margin-top: calc(var(--mantine-spacing-md) * 1.25);
+  padding: var(--mantine-spacing-lg);
+}
+
+.groupWrapper {
+  gap: 0;
+  flex-wrap: nowrap;
+}
+
+.image {
+  height: 352px;
+  width: 250px;
+  padding: var(--mantine-spacing-md);
 }
 
 .link {
@@ -57,7 +69,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 352px;
+  min-height: 352px;
   width: 100%;
   padding-left: var(--mantine-spacing-md);
 }
@@ -65,4 +77,33 @@
 .group {
   max-width: 140px;
   width: 100%;
+}
+
+@media (max-width: 980px) {
+  .groupWrapper {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 590px) {
+  .card {
+    padding: var(--mantine-spacing-sm);
+  }
+}
+
+@media (max-width: 430px) {
+  .group {
+    max-width: 100px;
+  }
+
+  .image {
+    height: 170px;
+    width: 119px;
+  }
+}
+
+@media (max-width: 390px) {
+  .rating {
+    display: none;
+  }
 }

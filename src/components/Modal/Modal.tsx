@@ -13,6 +13,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useStorage } from '@hooks/useStorage';
 import { Movie, MovieDetails } from '@customTypes/types';
+import { useMediaQuery } from '@mantine/hooks';
 import classes from './Modal.module.css';
 
 type ModalProps = {
@@ -23,6 +24,7 @@ type ModalProps = {
 
 export default function Modal({ movie, opened, close }: Readonly<ModalProps>) {
   const theme = useMantineTheme();
+  const matches = useMediaQuery('(max-width: 390px)');
   const [currentRating, setCurrentRating] = useState<number>(0);
   const { storageData, addRating, removeRating } = useStorage();
 
@@ -67,7 +69,7 @@ export default function Modal({ movie, opened, close }: Readonly<ModalProps>) {
         className={classes.rating}
         defaultValue={currentRating}
         color={theme.colors.yellow[6]}
-        size='xl'
+        size={matches ? 'md' : 'xl'}
         count={10}
         onChange={(value) => setCurrentRating(value)}
       />

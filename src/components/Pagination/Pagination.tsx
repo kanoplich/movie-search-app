@@ -26,7 +26,7 @@ export default function Pagination({
       boundaries={-1}
       value={activePage}
       color={theme.colors.purple[5]}
-      mt={'xl'}
+      mt={'lg'}
       onChange={(value) => setActivePage(value)}
     />
   );

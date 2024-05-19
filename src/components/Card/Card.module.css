@@ -14,3 +14,9 @@
   line-height: var(--mantine-line-height-xs);
   color: var(--mantine-color-purple-5);
 }
+
+@media (max-width: 390px) {
+  .breadcrumbsWrapper {
+    display: none;
+  }
+}

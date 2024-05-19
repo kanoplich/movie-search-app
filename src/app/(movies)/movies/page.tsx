@@ -64,14 +64,8 @@ export default function Movies() {
         setAverageLte={setAverageLte}
         setPage={setActivePage}
       />
-      <Sort setSort={setSort} />
-      <Flex
-        gap='md'
-        justify='flex-start'
-        align='flex-start'
-        direction='row'
-        wrap='wrap'
-      >
+      <Sort setSort={setSort} setPage={setActivePage} />
+      <Flex className={classes.flex}>
         {!data ? (
           <Loader />
         ) : (

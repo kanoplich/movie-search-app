@@ -1,22 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Group, Title, Image, Anchor } from '@mantine/core';
 import { poppins } from '@assets/fonts/fonts';
 import Link from 'next/link';
+import { useStorage } from '@hooks/useStorage';
 import classes from './Navbar.module.css';
 
 export default function Navbar() {
-  const [active, setActive] = useState('Movies');
+  const { navigate, active } = useStorage();
 
   useEffect(() => {
-    window.location.pathname === '/rated' && setActive('Rated movies');
+    window.location.pathname === '/rated' && navigate('Rated movies');
   }, []);
 
   return (
     <nav className={classes.navbar}>
       <div className={classes.navbarMain}>
-        <Group className={classes.header}>
+        <Group className={classes.header} wrap='nowrap'>
           <Image className={classes.logo} src='/logo.svg' alt='Arrow Flicks' />
           <Title order={1} className={`${classes.title} ${poppins.className}`}>
             ArrowFlicks
@@ -28,7 +29,7 @@ export default function Navbar() {
           href={'/movies'}
           data-active={'Movies' === active || undefined}
           onClick={() => {
-            setActive('Movies');
+            navigate('Movies');
           }}
         >
           Movies
@@ -39,7 +40,7 @@ export default function Navbar() {
           href={'/rated'}
           data-active={'Rated movies' === active || undefined}
           onClick={() => {
-            setActive('Rated movies');
+            navigate('Rated movies');
           }}
         >
           Rated movies

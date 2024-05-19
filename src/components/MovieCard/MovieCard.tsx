@@ -10,7 +10,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { IconStarFilled } from '@tabler/icons-react';
-import { Genres, Movie, MovieDetails } from '@customTypes/types';
+import { Movie, MovieDetails } from '@customTypes/types';
 import Link from 'next/link';
 import Modal from '@components/Modal/Modal';
 import { useDisclosure } from '@mantine/hooks';
@@ -56,16 +56,15 @@ export default function MovieCard({ movie }: Readonly<MovieCardProps>) {
   }
 
   return (
-    <Card radius='lg' p={'lg'} className={classes.card}>
-      <Group wrap='nowrap' gap={0} align='flex-start'>
+    <Card radius='lg' className={classes.card}>
+      <Group className={classes.group}>
         <Image
+          className={classes.image}
           src={
             poster_path
               ? `https://image.tmdb.org/t/p/w500/${poster_path}`
               : '/poster.svg'
           }
-          height={170}
-          width={119}
           alt={original_title}
         />
         <div className={classes.body}>

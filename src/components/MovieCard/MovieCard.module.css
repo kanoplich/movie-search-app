@@ -2,6 +2,17 @@
   position: relative;
   background-color: var(--mantine-color-body);
   width: 482px;
+  padding: var(--mantine-spacing-lg);
+}
+
+.group {
+  gap: 0;
+  flex-wrap: nowrap;
+}
+
+.image {
+  height: 170px;
+  width: 119px;
 }
 
 .link {
@@ -56,7 +67,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 170px;
+  min-height: 170px;
   padding-left: var(--mantine-spacing-md);
 }
 
@@ -65,4 +76,39 @@
   font-weight: 600;
   letter-spacing: 0.32px;
   color: var(--mantine-color-purple-5);
+}
+
+@media (max-width: 590px) {
+  .card {
+    width: 100%;
+    padding: var(--mantine-spacing-sm);
+  }
+
+  .group {
+    flex-direction: column;
+  }
+
+  .title {
+    max-width: 100%;
+  }
+
+  .image {
+    margin-bottom: var(--mantine-spacing-sm);
+  }
+
+  .body {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .ratingWrapper {
+    right: 12px;
+    top: 12px;
+  }
+}
+
+@media (max-width: 390px) {
+  .rating {
+    display: none;
+  }
 }

@@ -1,16 +1,18 @@
 'use client';
 
-import { Flex, Select } from '@mantine/core';
+import { Flex, Image, Select } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { SortOptions } from '@customTypes/types';
 import classes from './Sort.module.css';
 
 type SortProps = {
   setSort: (value: string) => void;
+  setPage: (value: number) => void;
 };
 
-export default function Sort({ setSort }: Readonly<SortProps>) {
+export default function Sort({ setSort, setPage }: Readonly<SortProps>) {
   const [value, setValue] = useState<string | null>('Most Popular');
+  const [isSelect, setIsSelect] = useState<boolean>(false);
 
   useEffect(() => {
     const sortData: SortOptions = {
@@ -28,6 +30,7 @@ export default function Sort({ setSort }: Readonly<SortProps>) {
 
     if (value) {
       setSort(sortData[value]);
+      setPage(1);
     }
   }, [value]);
 
@@ -35,12 +38,11 @@ export default function Sort({ setSort }: Readonly<SortProps>) {
     <Flex align={'flex-end'} justify={'end'} mt={'lg'} mb={'lg'}>
       <Select
         classNames={{
+          wrapper: classes.wrapper,
           input: classes.input,
           label: classes.label,
-          section: classes.section,
           option: classes.option,
         }}
-        style={{ maxWidth: '280px', width: '100%' }}
         radius={'md'}
         withCheckIcon={false}
         label='Sort by'
@@ -58,6 +60,16 @@ export default function Sort({ setSort }: Readonly<SortProps>) {
           'Late Release Date',
         ]}
         onChange={(value) => setValue(value)}
+        onDropdownOpen={() => setIsSelect(true)}
+        onDropdownClose={() => setIsSelect(false)}
+        rightSectionWidth={'48'}
+        rightSection={
+          isSelect ? (
+            <Image src='/up.svg' alt='up' />
+          ) : (
+            <Image src='down.svg' alt='down' />
+          )
+        }
       />
     </Flex>
   );

@@ -1,8 +1,15 @@
 .container {
-  padding: 40px 0;
+  padding: 40px 10px;
   margin: 0 auto;
-  max-width: 980px;
+  max-width: 1000px;
   width: 100%;
+}
+
+.wrapper {
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: calc(var(--mantine-spacing-xl) * 1.25);
 }
 
 .title {
@@ -10,10 +17,29 @@
   font-weight: 700;
   line-height: var(--mantine-line-height-xs);
   letter-spacing: 0.32px;
-  margin-bottom: calc(var(--mantine-spacing-xl) * 1.25);
 }
 
 .pagination {
   display: flex;
   justify-content: center;
+}
+
+.flex {
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--mantine-spacing-md);
+}
+
+@media (max-width: 1235px) {
+  .flex {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 390px) {
+  .title {
+    font-size: var(--mantine-font-size-xl);
+  }
 }

@@ -1,6 +1,14 @@
+.wrapper {
+  width: 284px;
+}
+
 .input {
-  overflow: hidden;
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 400;
+  line-height: var(--mantine-line-height-xs);
   height: 42px;
+  padding-top: 0;
+  padding-bottom: 0;
 
   &:active {
     border-color: var(--mantine-color-purple-5);
@@ -14,25 +22,25 @@
 .label {
   font-size: var(--mantine-font-size-md);
   font-weight: 700;
-}
-
-.section {
-  background-image: url('/down.svg');
-  background-position: center center;
-  background-repeat: no-repeat;
-
-  svg {
-    display: none;
-  }
+  line-height: var(--mantine-line-height-xs);
+  margin-bottom: var(--mantine-spacing-xs);
 }
 
 .option {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 400;
+  line-height: var(--mantine-line-height-xs);
+  border-radius: var(--mantine-radius-md);
+  height: 36px;
+
   &:hover {
-    border-radius: var(--mantine-radius-md);
     background-color: var(--mantine-color-purple-5);
     color: var(--mantine-color-white);
-    font-size: var(--mantine-font-size-sm);
-    font-weight: 400;
-    line-height: var(--mantine-line-height-xs);
+  }
+}
+
+@media (max-width: 390px) {
+  .wrapper {
+    width: 100%;
   }
 }

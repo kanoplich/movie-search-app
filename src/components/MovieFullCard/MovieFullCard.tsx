@@ -12,7 +12,7 @@ import {
 import { IconStarFilled } from '@tabler/icons-react';
 import { MovieDetails } from '@customTypes/types';
 import Modal from '@components/Modal/Modal';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { useStorage } from '@hooks/useStorage';
 import classes from './MovieFullCard.module.css';
 
@@ -22,6 +22,7 @@ type MovieFullCardProps = {
 
 export default function MovieFullCard({ movie }: Readonly<MovieFullCardProps>) {
   const theme = useMantineTheme();
+  const matches = useMediaQuery('(max-width: 430px)');
   const {
     id,
     original_title,
@@ -55,16 +56,15 @@ export default function MovieFullCard({ movie }: Readonly<MovieFullCardProps>) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' } as const;
 
   return (
-    <Card radius='lg' p={'lg'} className={classes.card}>
-      <Group wrap='nowrap' gap={0} align='flex-start'>
+    <Card radius='lg' className={classes.card}>
+      <Group className={classes.groupWrapper}>
         <Image
+          className={classes.image}
           src={
             poster_path
               ? `https://image.tmdb.org/t/p/w500/${poster_path}`
               : '/poster.svg'
           }
-          height={352}
-          width={250}
           alt={original_title}
         />
         <div className={classes.body}>
@@ -99,51 +99,51 @@ export default function MovieFullCard({ movie }: Readonly<MovieFullCardProps>) {
           <Box>
             <Group wrap='nowrap' gap='xs' className={classes.wrapper}>
               <Group gap='xs' wrap='nowrap' className={classes.group}>
-                <Text size='md' c={theme.colors.grey[6]}>
+                <Text size={matches ? 'xs' : 'md'} c={theme.colors.grey[6]}>
                   Duration
                 </Text>
               </Group>
-              <Text size='md' c='black'>
+              <Text size={matches ? 'xs' : 'md'} c='black'>
                 {time}
               </Text>
             </Group>
             <Group wrap='nowrap' gap='xs' className={classes.wrapper}>
               <Group gap='xs' wrap='nowrap' className={classes.group}>
-                <Text size='md' c={theme.colors.grey[6]}>
+                <Text size={matches ? 'xs' : 'md'} c={theme.colors.grey[6]}>
                   Premiere
                 </Text>
               </Group>
-              <Text size='md' c='black'>
+              <Text size={matches ? 'xs' : 'md'} c='black'>
                 {new Date(release_date).toLocaleDateString('en-US', options)}
               </Text>
             </Group>
             <Group wrap='nowrap' gap='xs' className={classes.wrapper}>
               <Group gap='xs' wrap='nowrap' className={classes.group}>
-                <Text size='md' c={theme.colors.grey[6]}>
+                <Text size={matches ? 'xs' : 'md'} c={theme.colors.grey[6]}>
                   Budget
                 </Text>
               </Group>
-              <Text size='md' c='black'>
+              <Text size={matches ? 'xs' : 'md'} c='black'>
                 ${budget.toLocaleString('en-US')}
               </Text>
             </Group>
             <Group wrap='nowrap' gap='xs' className={classes.wrapper}>
               <Group gap='xs' wrap='nowrap' className={classes.group}>
-                <Text size='md' c={theme.colors.grey[6]}>
+                <Text size={matches ? 'xs' : 'md'} c={theme.colors.grey[6]}>
                   Gross worldwide
                 </Text>
               </Group>
-              <Text size='md' c='black'>
+              <Text size={matches ? 'xs' : 'md'} c='black'>
                 {revenue.toLocaleString('en-US')}
               </Text>
             </Group>
             <Group wrap='nowrap' gap='xs' className={classes.wrapper}>
               <Group gap='xs' wrap='nowrap' className={classes.group}>
-                <Text size='md' c={theme.colors.grey[6]}>
+                <Text size={matches ? 'xs' : 'md'} c={theme.colors.grey[6]}>
                   Genres
                 </Text>
               </Group>
-              <Text size='md' c='black'>
+              <Text size={matches ? 'xs' : 'md'} c='black'>
                 {genresList}
               </Text>
             </Group>

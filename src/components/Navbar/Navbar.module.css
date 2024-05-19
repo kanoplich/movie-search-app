@@ -55,3 +55,23 @@
     }
   }
 }
+
+@media (max-width: 780px) {
+  .navbar {
+    width: 80px;
+    padding: var(--mantine-spacing-lg) var(--mantine-spacing-xs);
+  }
+
+  .title {
+    display: none;
+  }
+
+  .logo {
+    margin-left: var(--mantine-spacing-md);
+  }
+
+  .link {
+    font-size: var(--mantine-font-size-sm);
+    padding: var(--mantine-spacing-xs) var(--mantine-spacing-xs);
+  }
+}

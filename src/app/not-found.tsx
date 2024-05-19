@@ -13,7 +13,7 @@ export default function NotFound() {
   };
   return (
     <div className={classes.wrapper}>
-      <Group className={classes.header}>
+      <Group className={classes.header} wrap='nowrap'>
         <Image className={classes.logo} src='/logo.svg' alt='Arrow Flicks' />
         <Title order={1} className={`${classes.title} ${poppins.className}`}>
           ArrowFlicks
