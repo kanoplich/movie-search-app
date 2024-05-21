@@ -15,6 +15,7 @@ import Link from 'next/link';
 import Modal from '@components/Modal/Modal';
 import { useDisclosure } from '@mantine/hooks';
 import { useStorage } from '@hooks/useStorage';
+import { useEffect, useState } from 'react';
 import classes from './MovieCard.module.css';
 
 type MovieCardProps = {
@@ -34,17 +35,35 @@ export default function MovieCard({ movie }: Readonly<MovieCardProps>) {
 
   const [opened, { open, close }] = useDisclosure(false);
   const { storageData, genresList } = useStorage();
+  const [genresMovie, setGenresMovie] = useState<string>('');
+  const [img, setImg] = useState(
+    `https://image.tmdb.org/t/p/w200/${poster_path}`
+  );
 
-  let genresMovie;
+  useEffect(() => {
+    let genresMovie;
 
-  if ('genre_ids' in movie) {
-    genresMovie = genresList
-      .filter((genres) => movie.genre_ids.includes(genres.id))
-      .map((genres) => genres.name)
-      .join(', ');
-  } else {
-    genresMovie = movie.genres.map((genre) => genre.name).join(', ');
-  }
+    if ('genre_ids' in movie) {
+      if (movie.genre_ids.length > 0) {
+        genresMovie = genresList
+          .filter((genres) => movie.genre_ids.includes(genres.id))
+          .map((genres) => genres.name)
+          .join(', ');
+      } else {
+        genresMovie = '';
+      }
+    } else if ('genres' in movie) {
+      if (movie.genres.length > 0) {
+        genresMovie = movie.genres.map((genre) => genre.name).join(', ');
+      } else {
+        genresMovie = '';
+      }
+    } else {
+      genresMovie = '';
+    }
+
+    setGenresMovie(genresMovie);
+  }, [genresList, movie]);
 
   let count;
   if (+vote_count > 999) {
@@ -60,12 +79,9 @@ export default function MovieCard({ movie }: Readonly<MovieCardProps>) {
       <Group className={classes.group}>
         <Image
           className={classes.image}
-          src={
-            poster_path
-              ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-              : '/poster.svg'
-          }
+          src={img}
           alt={original_title}
+          onError={() => setImg('/poster.svg')}
         />
         <div className={classes.body}>
           <Box>
@@ -78,21 +94,21 @@ export default function MovieCard({ movie }: Readonly<MovieCardProps>) {
               </Title>
             </Link>
             <Text className={classes.data} mt='xs' mb='xs'>
-              {release_date.slice(0, 4)}
+              {release_date ? release_date.slice(0, 4) : ''}
             </Text>
-            <Group wrap='nowrap' gap='xs'>
-              <Group gap={'4px'} wrap='nowrap'>
+            <Group wrap='nowrap' gap='xs' align='center'>
+              <Group gap={'4px'} wrap='nowrap' align='center'>
                 <IconStarFilled
                   color={theme.colors.yellow[6]}
                   width={28}
                   height={28}
                 />
-                <Text className={classes.rating}>
-                  {Number(vote_average).toFixed(1)}
+                <Text className={classes.voteAverage}>
+                  {vote_average ? Number(vote_average).toFixed(1) : 0}
                 </Text>
               </Group>
               <Text size='md' c={theme.colors.grey[6]}>
-                ({count})
+                ({count ?? 0})
               </Text>
             </Group>
           </Box>

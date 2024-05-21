@@ -54,13 +54,12 @@
   top: 24px;
 }
 
-.rating {
+.voteAverage {
   font-size: var(--mantine-font-size-md);
   font-weight: 600;
   line-height: 1.25;
   letter-spacing: 0.32px;
   color: var(--mantine-color-black);
-  margin-top: 2px;
 }
 
 .body {

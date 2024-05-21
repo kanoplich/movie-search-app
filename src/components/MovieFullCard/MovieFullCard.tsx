@@ -16,6 +16,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { useStorage } from '@hooks/useStorage';
 import Description from '@components/Description/Description';
 import classes from './MovieFullCard.module.css';
+import { useState } from 'react';
 
 type MovieFullCardProps = {
   movie: MovieDetails;
@@ -38,6 +39,9 @@ export default function MovieFullCard({ movie }: Readonly<MovieFullCardProps>) {
 
   const [opened, { open, close }] = useDisclosure(false);
   const { storageData } = useStorage();
+  const [img, setImg] = useState(
+    `https://image.tmdb.org/t/p/w300/${poster_path}`
+  );
 
   let count;
   if (+vote_count > 999) {
@@ -48,15 +52,19 @@ export default function MovieFullCard({ movie }: Readonly<MovieFullCardProps>) {
     count = vote_count;
   }
 
-  const hours = Math.floor(runtime / 60);
-  const minutes = runtime % 60;
-  const time = hours ? `${hours}h ${minutes}m` : `${minutes}m`;
-
+  let time = '';
+  if (runtime) {
+    const hours = Math.floor(runtime / 60);
+    const minutes = runtime % 60;
+    time = hours ? `${hours}h ${minutes}m` : `${minutes}m`;
+  }
   const genresList = genres.map((genre) => genre.name).join(', ');
   const options = { year: 'numeric', month: 'long', day: 'numeric' } as const;
-  const date = new Date(release_date).toLocaleDateString('en-US', options);
-  const money = budget.toLocaleString('en-US');
-  const income = revenue.toLocaleString('en-US');
+  const date = release_date
+    ? new Date(release_date).toLocaleDateString('en-US', options)
+    : '';
+  const money = budget ? `$${budget.toLocaleString('en-US')}` : '';
+  const income = revenue ? `$${revenue.toLocaleString('en-US')}` : '';
 
   const title = ['Duration', 'Premiere', 'Budget', 'Gross worldwide', 'Genres'];
   const data = [time, date, money, income, genresList];
@@ -66,12 +74,9 @@ export default function MovieFullCard({ movie }: Readonly<MovieFullCardProps>) {
       <Group className={classes.groupWrapper}>
         <Image
           className={classes.image}
-          src={
-            poster_path
-              ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-              : '/poster.svg'
-          }
+          src={img}
           alt={original_title}
+          onError={() => setImg('/poster.svg')}
         />
         <div className={classes.body}>
           <Box>
@@ -79,17 +84,17 @@ export default function MovieFullCard({ movie }: Readonly<MovieFullCardProps>) {
               {original_title}
             </Title>
             <Text className={classes.data} mt='xs' mb='xs'>
-              {release_date.slice(0, 4)}
+              {release_date ? release_date.slice(0, 4) : ''}
             </Text>
-            <Group wrap='nowrap' gap='xs'>
-              <Group gap={'4px'} wrap='nowrap'>
+            <Group wrap='nowrap' gap='xs' align='center'>
+              <Group gap={'4px'} wrap='nowrap' align='center'>
                 <IconStarFilled
                   color={theme.colors.yellow[6]}
                   width={28}
                   height={28}
                 />
-                <Text className={classes.rating}>
-                  {Number(vote_average).toFixed(1)}
+                <Text className={classes.voteAverage}>
+                  {vote_average ? Number(vote_average).toFixed(1) : 0}
                 </Text>
               </Group>
               <Text
@@ -97,12 +102,12 @@ export default function MovieFullCard({ movie }: Readonly<MovieFullCardProps>) {
                 size='md'
                 c={theme.colors.grey[6]}
               >
-                ({count})
+                ({count ?? 0})
               </Text>
             </Group>
           </Box>
 
-          <Box>
+          <Box className={classes.description}>
             {title.map((item, i) => (
               <Description key={item} title={item} value={data[i]} />
             ))}

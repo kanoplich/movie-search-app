@@ -24,6 +24,8 @@ export default function Sort({ setSort, setPage }: Readonly<SortProps>) {
       'Least Voted': 'vote_count.asc',
       'Most Revenue': 'revenue.desc',
       'Least Revenue': 'revenue.asc',
+      'Most title': 'original_title.desc',
+      'Least title': 'original_title.asc',
       'Early Release Date': 'primary_release_date.desc',
       'Late Release Date': 'primary_release_date.asc',
     };
@@ -55,6 +57,8 @@ export default function Sort({ setSort, setPage }: Readonly<SortProps>) {
           'Most Voted',
           'Least Voted',
           'Most Revenue',
+          'Most title',
+          'Least title',
           'Least Revenue',
           'Early Release Date',
           'Late Release Date',

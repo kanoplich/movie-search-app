@@ -5,7 +5,11 @@ import { poppins } from '@assets/fonts/fonts';
 import { useRouter } from 'next/navigation';
 import classes from './not-found.module.css';
 
-export default function NotFound() {
+type ErrorPageProps = {
+  reset: () => void;
+};
+
+export default function ErrorPage({ reset }: Readonly<ErrorPageProps>) {
   const router = useRouter();
 
   const handleClick = () => {
@@ -33,15 +37,26 @@ export default function NotFound() {
         <Text className={classes.text}>
           We can’t find the page you are looking for
         </Text>
-        <Button
-          variant='outline'
-          size='md'
-          mt='md'
-          className={classes.control}
-          onClick={handleClick}
-        >
-          Go Home
-        </Button>
+        <Flex gap={'xs'}>
+          <Button
+            variant='outline'
+            size='md'
+            mt='md'
+            className={classes.control}
+            onClick={handleClick}
+          >
+            Go Home
+          </Button>
+          <Button
+            variant='outline'
+            size='md'
+            mt='md'
+            className={classes.control}
+            onClick={() => reset()}
+          >
+            Try again
+          </Button>
+        </Flex>
       </Flex>
     </div>
   );

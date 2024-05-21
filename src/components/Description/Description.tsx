@@ -1,4 +1,4 @@
-import { Group, Text, useMantineTheme } from '@mantine/core';
+import { Flex, Text, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import classes from './Description.module.css';
 
@@ -15,15 +15,17 @@ export default function Description({
   const matches = useMediaQuery('(max-width: 430px)');
 
   return (
-    <Group wrap='nowrap' gap='xs' className={classes.wrapper}>
-      <Group gap='xs' wrap='nowrap' className={classes.group}>
-        <Text size={matches ? 'xs' : 'md'} c={theme.colors.grey[6]}>
-          {title}
-        </Text>
-      </Group>
+    <Flex gap={'xs'}>
+      <Text
+        className={classes.text}
+        size={matches ? 'xs' : 'md'}
+        c={theme.colors.grey[6]}
+      >
+        {title}
+      </Text>
       <Text size={matches ? 'xs' : 'md'} c='black'>
         {value}
       </Text>
-    </Group>
+    </Flex>
   );
 }

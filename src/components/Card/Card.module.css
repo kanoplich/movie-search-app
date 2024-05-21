@@ -2,6 +2,7 @@
   margin: 0 auto;
   max-width: 800px;
   width: calc(100% - 20px);
+  padding: 0;
 }
 
 .breadcrumbsWrapper {

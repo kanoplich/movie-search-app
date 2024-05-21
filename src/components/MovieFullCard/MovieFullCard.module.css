@@ -7,14 +7,13 @@
 }
 
 .groupWrapper {
-  gap: 0;
+  gap: var(--mantine-spacing-xl);
   flex-wrap: nowrap;
 }
 
 .image {
   height: 352px;
   width: 250px;
-  padding: var(--mantine-spacing-md);
 }
 
 .link {
@@ -26,6 +25,7 @@
   font-weight: 600;
   letter-spacing: 0.32px;
   color: var(--mantine-color-purple-5);
+  max-width: 400px;
 }
 
 .data {
@@ -42,17 +42,12 @@
   top: 24px;
 }
 
-.rating {
+.voteAverage {
   font-size: var(--mantine-font-size-md);
   font-weight: 600;
   line-height: 1.25;
   letter-spacing: 0.32px;
   color: var(--mantine-color-black);
-  margin-top: 2px;
-}
-
-.voteCount {
-  margin-top: 2px;
 }
 
 .body {
@@ -61,7 +56,12 @@
   justify-content: space-between;
   min-height: 352px;
   width: 100%;
-  padding-left: var(--mantine-spacing-md);
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-xs);
 }
 
 @media (max-width: 980px) {

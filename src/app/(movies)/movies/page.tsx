@@ -44,7 +44,9 @@ export default function Movies() {
       setData(data);
     };
 
-    fetchData().catch((e) => console.log('Failed to run promise', e));
+    fetchData().catch((e) => {
+      console.log('Failed to run promise', e);
+    });
   }, [year, withGenres, averageGte, averageLte, sort, activePage]);
 
   return (

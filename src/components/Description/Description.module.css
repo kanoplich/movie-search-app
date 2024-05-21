@@ -1,20 +1,10 @@
-.wrapper {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: var(--mantine-spacing-sm);
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.group {
+.text {
   max-width: 140px;
   width: 100%;
 }
 
 @media (max-width: 430px) {
-  .group {
+  .text {
     max-width: 100px;
   }
 }
